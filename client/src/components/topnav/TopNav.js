@@ -9,7 +9,7 @@ const TopNav = () => (
       <img className='logo' alt="Skyscanner" src={logo}/>
     </a>
     <a href="#">
-      <img className="burger-menu" src={burger}/>
+      <img className="burger-menu" alt="menu-button" src={burger}/>
     </a>
   </header>
 );

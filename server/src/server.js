@@ -30,19 +30,15 @@ app.get('/', (req, res) => {
 */
 app.get('/api/search', (req, res) => {
     var params = {
-        CabinClass: 'Economy',
-        Country: "UK",
-        Currency: "GBP",
-        Locale: "en-GB",
-        LocationSchema: "iata",
-        OriginPlace: "EDI",
-        DestinationPlace: "LHR",
-        OutboundDate: "2017-08-13",
-        InboundDate: "2017-08-14",
-        Adults: 2,
-        Children: 1,
-        Infants: 1,
-        APIKey: config.apiKey
+      "class": "Economy",
+      "fromPlace": "EDI",
+      "toPlace": "LHR",
+      "fromDate": "2017-08-13",
+      "toDate": "2017-08-14",
+      "adults": "2",
+      "children": "1",
+      "infants": "1",
+      "apiKey": "ss630745725358065467897349852985"
     };
 
   api.livePricing.search(params)

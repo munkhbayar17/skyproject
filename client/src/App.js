@@ -11,8 +11,7 @@ class App extends Component {
       <div className="App">
         <TopNav/>
         <TopControl/>
-        // TODO placeholder controls
-        // TODO results component
+        <SearchResult/>
       </div>
     );
   }

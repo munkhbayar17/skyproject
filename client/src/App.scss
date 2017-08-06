@@ -1,3 +1,8 @@
 /* App CSS */
 
 @import "~bpk-stylesheets/index";
+@import "~bpk-mixins";
+
+.App {
+  background-color: #F2F1F4;
+}
