@@ -1,8 +1,146 @@
 /* App CSS */
-
 @import "~bpk-stylesheets/index";
 @import "~bpk-mixins";
 
 .App {
   background-color: #F2F1F4;
+
+  .search-section {
+
+    font-size: small;
+
+    background-color: $bpk-color-blue-700;
+    color: $bpk-color-white;
+
+    padding: $bpk-spacing-sm;
+
+    .journey-type {
+
+      span {
+
+        vertical-align: middle;
+
+        label text::before {
+          content: " ";
+        }
+
+        input[type=radio] {
+          vertical-align: middle;
+          border: 0;
+          width: 1.2rem;
+          height: 1.2rem;
+
+          &:active {
+            color: $bpk-color-blue-700;
+          }
+        }
+
+        &:not(:first-child) {
+          margin-left: 1rem;
+        }
+      }
+
+    }
+
+    .place {
+
+      margin-top: 0.75rem;
+
+      * {
+        display: block;
+      }
+
+    }
+
+    .dates {
+
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.75rem;
+
+      .date {
+
+        width: 45%;
+
+        * {
+          display: block;
+        }
+
+      }
+
+    }
+
+    .cabin-and-passengers {
+
+      margin-top: 0.75rem;
+
+      .passengers {
+
+        margin-top: 0.75rem;
+        display: flex;
+        justify-content: space-between;
+
+      }
+
+    }
+
+  }
+
+  input[type=date], input[type=text] {
+    display: inline-block;
+    width: 100%;
+    height: 2.25rem;
+    padding: .375rem .75rem;
+    border: .0625rem solid #e6e4eb;
+    border-radius: .1875rem;
+    background: #fff;
+    color: #524c61;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  input[type=number]{
+    display: inline-block;
+    width: 33%;
+    height: 2.25rem;
+    padding: .375rem .75rem;
+    border: .0625rem solid #e6e4eb;
+    border-radius: .1875rem;
+    background: #fff;
+    color: #524c61;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  input::-webkit-input-placeholder {
+    font-size: smaller;
+  }
+
+  select {
+    display: inline-block;
+    width: 100%;
+    height: 2.25rem;
+    padding: .375rem 1.875rem .375rem .75rem;
+    border: .0625rem solid #e6e4eb;
+    border-radius: .1875rem;
+    background: #fff url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zd…4xYy0uNi0uNi0uMi0xLjcuNy0xLjdoMTRjLjkgMCAxLjMgMS4xLjcgMS43eiIvPjwvc3ZnPg==) no-repeat right .75rem center;
+    background-size: 1.125rem 1.125rem;
+    color: #524c61;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    font-size: 1rem;
+  }
+
+  button {
+    @include bpk-button;
+    margin-top: 0.75rem;
+    width: 100%;
+  }
 }

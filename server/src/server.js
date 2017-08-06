@@ -33,19 +33,19 @@ app.get('/api/search', (req, res) => {
       "class": "Economy",
       "fromPlace": "EDI",
       "toPlace": "LHR",
-      "fromDate": "2017-08-13",
-      "toDate": "2017-08-14",
-      "adults": "2",
-      "children": "1",
-      "infants": "1",
+      "fromDate": "2017-08-14",
+      "toDate": "2017-08-15",
+      "adults": "1",
+      "children": "0",
+      "infants": "0",
       "apiKey": "ss630745725358065467897349852985"
     };
 
   api.livePricing.search(params)
   .then((results) => {
     // TODO - a better format for displaying results to the client
-    console.log('TODO: transform results for consumption by client');
-    console.log(results);
+    results.Itineraries =  results.Itineraries.slice(0, 10);
+    
     res.json(results);
   })
   .catch(console.error);
