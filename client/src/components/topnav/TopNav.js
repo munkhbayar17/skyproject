@@ -1,14 +1,16 @@
 import React from 'react';
 import './TopNav.scss';
-import logo from '../..//logo.svg';
+import logo from '../..//logo2.svg';
+import burger from '../..//burger-menu.svg';
 
 const TopNav = () => (
   <header className='header'>
     <a href="/">
-      <span className='logoText'>Skyscanner</span>
       <img className='logo' alt="Skyscanner" src={logo}/>
     </a>
-     // TODO burger menu icon
+    <a href="#">
+      <img className="burger-menu" src={burger}/>
+    </a>
   </header>
 );
 

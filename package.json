@@ -16,6 +16,9 @@
     "babel-preset-es2016": "6.11.3",
     "babel-preset-react": "6.11.1",
     "babel-runtime": "6.11.6",
+    "bpk-component-icon": "^3.10.0",
+    "bpk-mixins": "^11.1.3",
+    "bpk-stylesheets": "^3.2.48",
     "case-sensitive-paths-webpack-plugin": "1.1.2",
     "chalk": "1.1.3",
     "cross-spawn": "4.0.0",
@@ -49,6 +52,7 @@
     "webpack-dev-server": "1.14.1"
   },
   "dependencies": {
+    "bpk-component-button": "^1.6.43",
     "bpk-mixins": "^11.0.0",
     "bpk-stylesheets": "^3.2.14",
     "es6-promise": "^3.2.1",
