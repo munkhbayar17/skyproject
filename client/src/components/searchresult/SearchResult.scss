@@ -1,0 +1,93 @@
+/* Search Result CSS */
+
+@import "~bpk-mixins";
+@import '~bpk-mixins/index';
+
+.search-results {
+
+  .search-result {
+
+    padding: $bpk-spacing-xs $bpk-spacing-sm;
+
+    .recommendation {
+      background-color: $bpk-color-white;
+      border: 1px solid #E8E7EB;
+      border-radius: 5px;
+      box-shadow: #E8E7EB;
+      padding: $bpk-spacing-xs $bpk-spacing-sm;
+      font-size: smaller;
+
+      .itinerary {
+
+        .leg {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: $bpk-spacing-sm;
+
+          .flight-info {
+            width: 60%;
+            display: flex;
+            justify-content: space-between;
+
+            .airline-logo {
+              margin-top: 6px;
+            }
+
+            .flight-bound {
+
+              .place {
+                color: $bpk-color-gray-300;
+              }
+
+            }
+
+          }
+
+          .flight {
+            width: 40%;
+            text-align: right;
+
+            .duration {
+              font-size: small !important;
+              color: $bpk-color-gray-400;
+            }
+
+            .direct {
+              color: $bpk-color-green-500;
+            }
+          }
+
+        }
+
+      }
+
+      .agency-info {
+        display: flex;
+        justify-content: space-between;
+
+        .offer {
+          width: 70%;
+
+          .price {
+            font-size: $bpk-h-3-font-size !important;
+            display: block;
+          }
+
+          .agent {
+            display: block;
+            color: $bpk-color-gray-300 !important;
+          }
+
+        }
+
+        .select-button {
+          width: 30%;
+        }
+
+      }
+
+    }
+
+  }
+
+}

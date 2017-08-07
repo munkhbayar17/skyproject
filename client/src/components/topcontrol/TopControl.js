@@ -1,8 +1,8 @@
 import React from 'react';
 import './TopControl.scss';
 
-import arrowRight from '../..//arrow-right.svg';
-import priceAlert from '../..//price-alerts.svg';
+import arrowRight from '../../icons//arrow-right.svg';
+import priceAlert from '../../icons//price-alerts.svg';
 
 var originPlace = "EDI";
 var destinationPlace = "LON";

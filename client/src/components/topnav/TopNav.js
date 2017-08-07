@@ -1,7 +1,7 @@
 import React from 'react';
 import './TopNav.scss';
-import logo from '../..//logo2.svg';
-import burger from '../..//burger-menu.svg';
+import logo from '../../icons//logo2.svg';
+import burger from '../../icons//burger-menu.svg';
 
 const TopNav = () => (
   <header className='header'>

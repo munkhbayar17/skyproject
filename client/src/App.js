@@ -3,8 +3,8 @@ import './App.scss';
 
 import TopNav from './components/topnav';
 import FlightSearch from './components/flightsearch'
-// import TopControl from './components/topControl';
-// import SearchResult from './components/searchResult';
+import TopControl from './components/topcontrol';
+import SearchResult from './components/searchresult';
 
 class App extends Component {
   
@@ -53,6 +53,8 @@ class App extends Component {
         console.log(results);
         
         // TODO call searchResult
+  
+        this.setState({results: results});
       })
       .catch(console.error);
   }
@@ -63,6 +65,18 @@ class App extends Component {
   }
   
   render() {
+    //result page
+    if(true || this.state.results) {
+      return (
+        <div className="App">
+          <TopNav/>
+          <TopControl/>
+          <SearchResult/>
+        </div>
+      );
+    }
+    
+    //homepage
     return (
       <div className="App">
         <TopNav/>
