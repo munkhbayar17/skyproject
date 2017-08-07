@@ -44,7 +44,7 @@
 
     .place {
 
-      margin-top: 0.75rem;
+      margin-top: 1rem;
 
       * {
         display: block;
@@ -56,7 +56,7 @@
 
       display: flex;
       justify-content: space-between;
-      margin-top: 0.75rem;
+      margin-top: 1rem;
 
       .date {
 
@@ -72,11 +72,11 @@
 
     .cabin-and-passengers {
 
-      margin-top: 0.75rem;
+      margin-top: 1rem;
 
       .passengers {
 
-        margin-top: 0.75rem;
+        margin-top: 1rem;
         display: flex;
         justify-content: space-between;
 
@@ -140,7 +140,7 @@
 
   button {
     @include bpk-button;
-    margin-top: 0.75rem;
+    margin-top: 1rem;
     width: 100%;
   }
 }

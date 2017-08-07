@@ -29,17 +29,9 @@ app.get('/', (req, res) => {
   http://business.skyscanner.net/portal/en-GB/Documentation/FlightsLivePricingQuickStart
 */
 app.get('/api/search', (req, res) => {
-    var params = {
-      "class": "Economy",
-      "fromPlace": "EDI",
-      "toPlace": "LHR",
-      "fromDate": "2017-08-14",
-      "toDate": "2017-08-15",
-      "adults": "1",
-      "children": "0",
-      "infants": "0",
-      "apiKey": "ss630745725358065467897349852985"
-    };
+  
+  var params = req.data;
+  params["apiKey"] = config.apiKey;
 
   api.livePricing.search(params)
   .then((results) => {
