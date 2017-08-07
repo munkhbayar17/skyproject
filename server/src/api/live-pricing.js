@@ -35,7 +35,8 @@ const livePricing = {
       })
     },
     pollSession: (creds) => {
-      return fetch(pricingUrl + `/${creds.sessionKey}?apiKey=${config.apiKey}`, {
+      // TODO paging needed here
+      return fetch(pricingUrl + `/${creds.sessionKey}?apiKey=${config.apiKey}&sortType=price*&sortOrder=asc&pageIndex=1`, {
         method: 'GET',
         // uncomment if you'd like to use a development proxy (e.g. Charles or Fiddler)
         // agent: new HttpProxyAgent({

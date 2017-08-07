@@ -64,14 +64,21 @@ class App extends Component {
     this.setState({[e.target.name]: e.target.value});
   }
   
+  passengersCount() {
+    return parseInt(this.state.adults, 10)+parseInt(this.state.children, 10)+parseInt(this.state.infants, 10);
+  }
+  
   render() {
     //result page
-    if(true || this.state.results) {
+    if(this.state.results) {
       return (
         <div className="App">
           <TopNav/>
-          <TopControl/>
-          <SearchResult/>
+          <TopControl fromPlace={this.state.fromPlace}
+                      toPlace={this.state.toPlace}
+                      passengers={this.passengersCount()}
+                      class={this.state.class}/>
+          <SearchResult resultData={this.state.results}/>
         </div>
       );
     }

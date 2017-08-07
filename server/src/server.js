@@ -10,6 +10,14 @@ const app = express();
 // importing api directory
 const api = require('./api/');
 
+function toHashTable(arr) {
+  var table = {};
+  arr.forEach(function(elem) {
+    table[elem.Id] = elem;
+  });
+  return table;
+}
+
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -34,13 +42,21 @@ app.get('/api/search', (req, res) => {
 
   api.livePricing.search(params)
   .then((results) => {
-    // TODO - a better format for displaying results to the client
-    results.Itineraries =  results.Itineraries.slice(0, 10);
+    
+    //converting arrays to hashtable
+    results.Agents = toHashTable(results.Agents);
+    results.Carriers = toHashTable(results.Carriers);
+    results.Legs = toHashTable(results.Legs);
+    results.Places = toHashTable(results.Places);
+    // TODO if segment is to be shown on the front-end, convert it.
     
     res.json(results);
   })
   .catch(console.error);
 });
+
+//TODO page request need to be added
+//app.get('/api/search/2', (req, res) => {
 
 app.listen(4000, () => {
   console.log('Node server listening on http://localhost:4000');
