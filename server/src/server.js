@@ -30,8 +30,7 @@ app.get('/', (req, res) => {
 */
 app.get('/api/search', (req, res) => {
   
-  var params = req.data;
-  params["apiKey"] = config.apiKey;
+  var params = req.query;
 
   api.livePricing.search(params)
   .then((results) => {
