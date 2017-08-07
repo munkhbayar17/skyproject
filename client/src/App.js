@@ -39,7 +39,6 @@ class App extends Component {
       children: this.state.children,
       infants: this.state.infants
     };
-    console.log(params);
     
     const querystring = require('querystring');
     var url = 'http://localhost:4000/api/search?';

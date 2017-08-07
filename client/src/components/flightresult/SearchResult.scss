@@ -1,0 +1,55 @@
+/* Search Result CSS */
+
+@import "~bpk-mixins";
+@import '~bpk-mixins/index';
+
+.search-results {
+
+  .search-result {
+
+    padding: $bpk-spacing-xs $bpk-spacing-sm;
+
+    .recommendation {
+      background-color: $bpk-color-white;
+      border: 1px solid #E8E7EB;
+      border-radius: 5px;
+      box-shadow: #E8E7EB;
+
+      .itineraries {
+
+        .itinerary {
+          display: flex;
+          justify-content: space-between;
+        }
+
+      }
+
+      .agency-info {
+
+        display: flex;
+        justify-content: space-between;
+
+        .offer {
+
+          .price {
+            font-size: $bpk-h-4-font-size;
+            display: block;
+          }
+
+          .agent {
+            display: block;
+          }
+
+        }
+
+        .select-button {
+          @include bpk-button;
+        }
+
+      }
+
+    }
+
+  }
+
+}

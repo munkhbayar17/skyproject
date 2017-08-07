@@ -1,0 +1,58 @@
+/* TopControl CSS */
+
+@import "~bpk-mixins";
+
+.top-control {
+
+  .journey-info {
+    padding: 0.65rem $bpk-spacing-xs;
+    background-color: $bpk-color-blue-500;
+    color: $bpk-color-white;
+
+    .route {
+      text-transform: uppercase;
+      font-size: $bpk-h-2-font-size;
+
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+
+      .arrow {
+        margin-left: 3px;
+        margin-right: 3px;
+      }
+
+    }
+
+    .travellers {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      font-size: small;
+    }
+
+  }
+
+  .controls {
+    padding: 0.65rem $bpk-spacing-xs;
+    background-color: $bpk-color-white;
+    color: $bpk-color-blue-500;
+
+    font-size: small;
+    display: flex;
+    align-item: center;
+    justify-content: space-between;
+
+    span {
+      cursor: pointer;
+    }
+
+    .result-controls {
+      span.sort {
+        margin-left: 30px;
+      }
+    }
+
+  }
+
+}
