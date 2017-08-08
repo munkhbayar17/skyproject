@@ -1,0 +1,12 @@
+/* TopNav CSS */
+
+@import "~bpk-mixins";
+
+.searching {
+  padding: $bpk-spacing-lg;
+  background: $bpk-color-white;
+  color: $bpk-color-blue-500;
+  font-size: $bpk-h-3-font-size;
+  text-align: center;
+  vertical-align: middle;
+}
