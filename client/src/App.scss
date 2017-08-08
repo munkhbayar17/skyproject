@@ -2,6 +2,16 @@
 @import "~bpk-stylesheets/index";
 @import "~bpk-mixins";
 
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
+
 .App {
   background-color: #F2F1F4;
+  height: 100%;
 }

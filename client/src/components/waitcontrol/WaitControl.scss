@@ -3,8 +3,10 @@
 @import "~bpk-mixins";
 
 .searching {
-  padding: $bpk-spacing-lg;
   background: $bpk-color-white;
+  height: 5rem;
+  padding: $bpk-spacing-lg;
+  margin-top: $bpk-spacing-xs;
   color: $bpk-color-blue-500;
   font-size: $bpk-h-3-font-size;
   text-align: center;

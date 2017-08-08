@@ -3,9 +3,8 @@
 @import "~bpk-mixins";
 
 .search-section {
-
+  height: 100%;
   font-size: small;
-
   background-color: $bpk-color-blue-700;
   color: $bpk-color-white;
 
@@ -14,7 +13,6 @@
   .journey-type {
 
     span {
-
       vertical-align: middle;
 
       label text::before {
@@ -36,51 +34,39 @@
         margin-left: 1rem;
       }
     }
-
   }
 
   .place {
-
     margin-top: 1rem;
 
     * {
       display: block;
     }
-
   }
 
   .dates {
-
     display: flex;
     justify-content: space-between;
     margin-top: 1rem;
 
     .date {
-
       width: 45%;
 
       * {
         display: block;
       }
-
     }
-
   }
 
   .cabin-and-passengers {
-
     margin-top: 1rem;
 
     .passengers {
-
       margin-top: 1rem;
       display: flex;
       justify-content: space-between;
-
     }
-
   }
-
 }
 
 input[type=date], input[type=text] {
@@ -99,7 +85,7 @@ input[type=date], input[type=text] {
   line-height: 1.5rem;
 }
 
-input[type=number]{
+input[type=number] {
   display: inline-block;
   width: 33%;
   height: 2.25rem;
