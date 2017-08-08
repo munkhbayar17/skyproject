@@ -63,6 +63,7 @@
     "bpk-stylesheets": "^3.2.14",
     "es6-promise": "^3.2.1",
     "format-currency": "^1.0.0",
+    "hh-mm-ss": "^1.1.0",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.15.0",
     "react": "^15.2.1",

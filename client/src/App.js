@@ -6,11 +6,11 @@ import FlightSearch from './components/flightsearch'
 import TopControl from './components/topcontrol';
 import SearchResult from './components/searchresult';
 import WaitControl from './components/waitcontrol';
+import Pager from './components/pager';
 
 const querystring = require('querystring');
 
 class App extends Component {
-  
   
   constructor(props) {
     super(props);
@@ -24,16 +24,27 @@ class App extends Component {
       toDate: "2017-08-15",
       adults: "1",
       children: "0",
-      infants: "0"
+      infants: "0",
+      pageNumber: 0
     };
     
     this.onChange = this.onChange.bind(this);
     this.searchFlight = this.searchFlight.bind(this);
+    this.next = this.next.bind(this);
   };
   
+  shouldComponentUpdate(nextProps, nextState) {
+    // console.log("old----");
+    // console.log(this.state.results);
+    // console.log("new----");
+    // console.log(nextState.results);
+    return true;
+  }
+  
   searchFlight() {
-    this.setState({searching: true});
     
+    this.setState({searching: true});
+
     var params = {
       class: this.state.class,
       fromPlace: this.state.fromPlace,
@@ -42,7 +53,8 @@ class App extends Component {
       toDate: this.state.toDate,
       adults: this.state.adults,
       children: this.state.children,
-      infants: this.state.infants
+      infants: this.state.infants,
+      pageNumber: this.state.pageNumber
     };
     
     var url = 'http://localhost:4000/api/search?';
@@ -74,6 +86,15 @@ class App extends Component {
     this.setState({[e.target.name]: e.target.value});
   }
   
+  next(e) {
+    e.preventDefault();
+    var currentPage = parseInt(this.state.pageNumber, 10);
+    this.setState({pageNumber: (currentPage+1)}, function stateUpdateCompleted() {
+      this.searchFlight();
+    }.bind(this));
+    
+  }
+  
   passengersCount() {
     return parseInt(this.state.adults, 10)+parseInt(this.state.children, 10)+parseInt(this.state.infants, 10);
   }
@@ -89,6 +110,7 @@ class App extends Component {
                       passengers={this.passengersCount()}
                       class={this.state.class}/>
           <SearchResult resultData={this.state.results}/>
+          <Pager next={this.next}></Pager>
         </div>
       );
     }

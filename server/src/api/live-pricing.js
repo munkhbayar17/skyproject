@@ -10,6 +10,8 @@ const maxRetries = 3;
 const maxPollTime = 15 * 1000;
 const pollDelay = 1000;
 
+var pageNumber = 0;
+
 let cachedData = {};
 
 /**
@@ -34,9 +36,9 @@ const livePricing = {
         // })
       })
     },
-    pollSession: (creds) => {
+    pollSession: (creds, pageNumber) => {
       // TODO paging needed here
-      return fetch(pricingUrl + `/${creds.sessionKey}?apiKey=${config.apiKey}&sortType=price*&sortOrder=asc&pageIndex=1`, {
+      return fetch(pricingUrl + `/${creds.sessionKey}?apiKey=${config.apiKey}&sortType=price*&sortOrder=asc&pageIndex=${pageNumber}`, {
         method: 'GET',
         // uncomment if you'd like to use a development proxy (e.g. Charles or Fiddler)
         // agent: new HttpProxyAgent({
@@ -95,7 +97,7 @@ function startPolling (session) {
 
     pollState.repoll = () => {
       _.delay(() => {
-        poll(pollState);
+        poll(pollState, pageNumber);
       }, pollDelay);
     };
 
@@ -104,11 +106,11 @@ function startPolling (session) {
       pollState.timedOut = true;
     }, maxPollTime);
 
-    poll(pollState);
+    poll(pollState, pageNumber);
   });
 }
 
-function poll (state) {
+function poll (state, pageNumber) {
   if (state.finished) {
     return;
   }
@@ -120,7 +122,7 @@ function poll (state) {
 
   console.log('polling...')
 
-  livePricing.api.pollSession(state.creds)
+  livePricing.api.pollSession(state.creds, pageNumber)
     .then((response) => {
       clearTimeout(backupTimer);
 
@@ -176,6 +178,8 @@ const sessionParams = (query) => {
 }
 
 livePricing.search = (searchParams) => {
+  pageNumber = searchParams.pageNumber;
+  
   return new Promise((resolve, reject) => {
     createSession(searchParams)
       .then(startPolling)

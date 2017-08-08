@@ -60,10 +60,14 @@ app.get('/api/search', (req, res) => {
       console.log("no result");
       results = null;
     }
-    
-    res.json(results);
+    finally {
+      res.json(results);
+    }
   })
-  .catch(console.error);
+  .catch((e) => {
+    console.error;
+    res.json(null);
+  });
 });
 
 //TODO page request need to be added

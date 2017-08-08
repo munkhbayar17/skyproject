@@ -8,12 +8,18 @@ class SearchResult extends Component {
   constructor(props) {
     super(props);
     
+    this.state = {
+      recommendationList: []
+    };
+  }
+  
+  render() {
     var itineraries = this.props.resultData["Itineraries"];
     var agents = this.props.resultData["Agents"];
     var legs = this.props.resultData["Legs"];
     var carriers = this.props.resultData["Carriers"];
     var places = this.props.resultData["Places"];
-    
+  
     //TODO test currency. what if there are different currencies?
     var currency = this.props.resultData["Currencies"][0];
     var currencySymbol = currency.Symbol;
@@ -29,24 +35,24 @@ class SearchResult extends Component {
       var airlineId = legs[itinerary.OutboundLegId].OperatingCarriers[0];
       var airlineCode = carriers[airlineId].Code;
       var airlineLogo = `https://logos.skyscnr.com/images/airlines/favicon/${airlineCode}.png`;
-      
+    
       //legs TODO what if it is multi city?
       var legList = [legs[itinerary.OutboundLegId], legs[itinerary.InboundLegId]];
       var legDom = legList.map(function(leg) {
-        
+      
         var origin = places[leg.OriginStation].Code;
         var destination = places[leg.DestinationStation].Code;
-        
+      
         var arrival = new Date(leg.Arrival);
         var departure = new Date(leg.Departure);
-        var arrivalTime = `${arrival.getHours()}:${arrival.getMinutes()}`;
-        var departureTime = `${departure.getHours()}:${departure.getMinutes()}`;
-        
+        var arrivalTime = `${arrival.getHours()}:${(arrival.getMinutes()>9?'':'0') + arrival.getMinutes()}`;
+        var departureTime = `${departure.getHours()}:${(departure.getMinutes()>9?'':'0') + departure.getMinutes()}`;
+      
         var durationHour = Math.floor(leg.Duration/60);
         var durationMinute = leg.Duration%60;
         durationMinute = (durationMinute>9)?`${durationMinute}`:`0${durationMinute}`;
         var duration = `${durationHour}h ${durationMinute}`;
-        
+      
         var direct = "Direct";
         var isDirect = true;
         if(leg.Stops.length > 0) {
@@ -55,7 +61,7 @@ class SearchResult extends Component {
           if(leg.Stops.length > 1)
             direct += "s";
         }
-        
+      
         return (
           <div className="leg">
             <div className="flight-info">
@@ -85,27 +91,28 @@ class SearchResult extends Component {
           </div>
         );
       });
-      
+    
       //offer
       var agentId = itinerary.PricingOptions[0].Agents[0];
       var agent = agents[agentId];
-
+    
       var currencyPart1 = '%s';
       var currencyPart2 = '%v';
-      
+    
       if(!symbolOnLeft) {
         currencyPart1 = '%v';
         currencyPart2 = '%s';
       }
-  
+    
       var price = formatCurrency(itinerary.PricingOptions[0].Price,
-        currencySymbol,
-        currencyDecimal,
-        thousandSeparator,
-        roundingCoefficient,
-        (spaceBetweenAmountAndSymbol)?`${currencyPart1} ${currencyPart2}`:`${currencyPart1}${currencyPart2}`
+        {
+          symbol: currencySymbol,
+          decimal: currencyDecimal,
+          thousand: thousandSeparator,
+          precision: roundingCoefficient,
+          format: (spaceBetweenAmountAndSymbol)?`${currencyPart1} ${currencyPart2}`:`${currencyPart1}${currencyPart2}`}
       );
-      
+    
       return (
         <div className="search-result">
           <div className="recommendation">
@@ -126,15 +133,11 @@ class SearchResult extends Component {
       );
     });
   
-    this.state = {
-      recommendationList: recommendationList
-    };
-  }
-  
-  render() {
+    //this.setState({recommendationList: recommendationList});
+    
     return (
       <div className="search-results">
-        {this.state.recommendationList}
+        {recommendationList}
       </div>
     );
   }
