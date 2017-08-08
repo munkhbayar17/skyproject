@@ -5,6 +5,9 @@ import TopNav from './components/topnav';
 import FlightSearch from './components/flightsearch'
 import TopControl from './components/topcontrol';
 import SearchResult from './components/searchresult';
+import WaitControl from './components/waitcontrol';
+
+const querystring = require('querystring');
 
 class App extends Component {
   
@@ -13,6 +16,7 @@ class App extends Component {
     super(props);
     
     this.state = {
+      searching: false,
       class: "Economy",
       fromPlace: "EDI",
       toPlace: "LOND",
@@ -28,6 +32,7 @@ class App extends Component {
   };
   
   searchFlight() {
+    this.setState({searching: true});
     
     var params = {
       class: this.state.class,
@@ -40,7 +45,6 @@ class App extends Component {
       infants: this.state.infants
     };
     
-    const querystring = require('querystring');
     var url = 'http://localhost:4000/api/search?';
     var query = querystring.stringify(params);
     
@@ -49,12 +53,18 @@ class App extends Component {
         return response.json();
       })
       .then((results) => {
-        console.log('TODO: something with these results:');
-        console.log(results);
         
-        // TODO call searchResult
+        if(results) {
+          console.log('TODO: something with these results:');
+          console.log(results);
+          this.setState({results: results});
+        }
+        else {
+          console.log("no result");
+          //TODO no result
+        }
   
-        this.setState({results: results});
+        this.setState({searching: false});
       })
       .catch(console.error);
   }
@@ -79,6 +89,19 @@ class App extends Component {
                       passengers={this.passengersCount()}
                       class={this.state.class}/>
           <SearchResult resultData={this.state.results}/>
+        </div>
+      );
+    }
+    else if(this.state.searching) {
+      //searching
+      return (
+        <div className="App">
+          <TopNav/>
+          <TopControl fromPlace={this.state.fromPlace}
+                      toPlace={this.state.toPlace}
+                      passengers={this.passengersCount()}
+                      class={this.state.class}/>
+          <WaitControl/>
         </div>
       );
     }

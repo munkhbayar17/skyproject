@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import './SearchResult.scss';
 import arrowRight from '../../icons//arrow-right-gray.svg';
 
+const formatCurrency = require('format-currency');
+
 class SearchResult extends Component {
   constructor(props) {
     super(props);
@@ -13,7 +15,13 @@ class SearchResult extends Component {
     var places = this.props.resultData["Places"];
     
     //TODO test currency. what if there are different currencies?
-    var currency = this.props.resultData["Currencies"][0].Symbol;
+    var currency = this.props.resultData["Currencies"][0];
+    var currencySymbol = currency.Symbol;
+    var symbolOnLeft = currency.SymbolOnLeft;
+    var thousandSeparator = currency.ThousandSeparator;
+    var currencyDecimal = currency.DecimalDigits;
+    var spaceBetweenAmountAndSymbol = currency.SpaceBetweenAmountAndSymbol;
+    var roundingCoefficient = currency.RoundingCoefficient;
   
     var recommendationList = itineraries.map(function(itinerary) {
     
@@ -39,7 +47,7 @@ class SearchResult extends Component {
         durationMinute = (durationMinute>9)?`${durationMinute}`:`0${durationMinute}`;
         var duration = `${durationHour}h ${durationMinute}`;
         
-        var direct = "direct";
+        var direct = "Direct";
         var isDirect = true;
         if(leg.Stops.length > 0) {
           isDirect = false;
@@ -52,7 +60,7 @@ class SearchResult extends Component {
           <div className="leg">
             <div className="flight-info">
               <div className="airline-logo">
-                <img alt="airline" width="24" height="24" src={airlineLogo}/>
+                <img alt={airlineCode} width="24" height="24" src={airlineLogo}/>
               </div>
             
               <div className="flight-bound">
@@ -81,7 +89,22 @@ class SearchResult extends Component {
       //offer
       var agentId = itinerary.PricingOptions[0].Agents[0];
       var agent = agents[agentId];
-      var price = itinerary.PricingOptions[0].Price;
+
+      var currencyPart1 = '%s';
+      var currencyPart2 = '%v';
+      
+      if(!symbolOnLeft) {
+        currencyPart1 = '%v';
+        currencyPart2 = '%s';
+      }
+  
+      var price = formatCurrency(itinerary.PricingOptions[0].Price,
+        currencySymbol,
+        currencyDecimal,
+        thousandSeparator,
+        roundingCoefficient,
+        (spaceBetweenAmountAndSymbol)?`${currencyPart1} ${currencyPart2}`:`${currencyPart1}${currencyPart2}`
+      );
       
       return (
         <div className="search-result">
@@ -92,7 +115,7 @@ class SearchResult extends Component {
           
             <div className="agency-info">
               <div className="offer">
-                <span className="price">{currency}{price}</span>
+                <span className="price">{price}</span>
                 <span className="agent">{agent.Name}</span>
               </div>
               <button className="select-button">Select</button>

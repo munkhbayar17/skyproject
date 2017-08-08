@@ -12,9 +12,14 @@ const api = require('./api/');
 
 function toHashTable(arr) {
   var table = {};
-  arr.forEach(function(elem) {
-    table[elem.Id] = elem;
-  });
+  if(arr && arr.length > 0) {
+    arr.forEach(function (elem) {
+      table[elem.Id] = elem;
+    });
+  }
+  else {
+    throw RangeException;
+  }
   return table;
 }
 
@@ -43,12 +48,18 @@ app.get('/api/search', (req, res) => {
   api.livePricing.search(params)
   .then((results) => {
     
-    //converting arrays to hashtable
-    results.Agents = toHashTable(results.Agents);
-    results.Carriers = toHashTable(results.Carriers);
-    results.Legs = toHashTable(results.Legs);
-    results.Places = toHashTable(results.Places);
-    // TODO if segment is to be shown on the front-end, convert it.
+    try {
+      //converting arrays to hashtable
+      results.Agents = toHashTable(results.Agents);
+      results.Carriers = toHashTable(results.Carriers);
+      results.Legs = toHashTable(results.Legs);
+      results.Places = toHashTable(results.Places);
+      // TODO if segment is to be shown on the front-end, convert it.
+    }
+    catch(e) {
+      console.log("no result");
+      results = null;
+    }
     
     res.json(results);
   })
