@@ -136,6 +136,7 @@ class App extends Component {
       })
       .catch(function () {
         //server is down
+        console.log("server is down!");
         this.setState({searching: false});
         this.setState({errorMsg: "Something went wrong, please try again."});
       }.bind(this));
@@ -180,7 +181,7 @@ class App extends Component {
       .catch(function () {
         //server is down
         console.log("server is down!");
-        this.setState({results: []});
+        this.setState({results: null});
         this.setState({errorMsg: "Something went wrong. Please try again."});
         this.blurResult(0);
       }.bind(this));
@@ -236,7 +237,7 @@ class App extends Component {
   
   render() {
     //result page
-    if (this.state.results && this.state.results !== []) {
+    if (this.state.results && this.state.results !== {}) {
       return (
         <div id="app" className="App">
           <TopNav/>
