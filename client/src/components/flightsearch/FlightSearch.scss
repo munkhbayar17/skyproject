@@ -50,7 +50,7 @@
     margin-top: 1rem;
 
     .date {
-      width: 45%;
+      width: 48%;
 
       * {
         display: block;
@@ -65,15 +65,50 @@
       margin-top: 1rem;
       display: flex;
       justify-content: space-between;
+      
+      .passenger {
+        width: 33%;
+
+        * {
+          display: block;
+        }
+      }
     }
   }
 }
 
-input[type=date], input[type=text] {
+@media screen and (min-width: 40rem)  {
+  .places {
+    display: flex;
+    justify-content: space-between;
+
+    .place {
+      display: table-cell;
+      width: 48%;
+    }
+  }
+
+  .cabin-and-passengers {
+    display: flex;
+    justify-content: space-between;
+
+    .passengers {
+      width: 49%;
+      margin: 0 !important;
+    }
+
+    .cabin-class {
+      width: 49%;
+    }
+  }
+
+}
+
+input:not([type=checkbox]):not([type=radio]) {
   display: inline-block;
   width: 100%;
   height: 2.25rem;
-  padding: .375rem .75rem;
+  padding: $bpk-spacing-xs $bpk-spacing-sm;
   border: .0625rem solid #e6e4eb;
   border-radius: .1875rem;
   background: #fff;
@@ -83,22 +118,13 @@ input[type=date], input[type=text] {
   appearance: none;
   font-size: 1rem;
   line-height: 1.5rem;
-}
 
-input[type=number] {
-  display: inline-block;
-  width: 33%;
-  height: 2.25rem;
-  padding: .375rem .75rem;
-  border: .0625rem solid #e6e4eb;
-  border-radius: .1875rem;
-  background: #fff;
-  color: #524c61;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  font-size: 1rem;
-  line-height: 1.5rem;
+  &[type=date] {
+    @media screen and(max-width: 24rem) {
+      padding: $bpk-spacing-xs;
+      font-size: medium;
+    }
+  }
 }
 
 input::-webkit-input-placeholder {

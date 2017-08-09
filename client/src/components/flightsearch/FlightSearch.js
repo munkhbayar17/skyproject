@@ -31,16 +31,18 @@ class FlightSearch extends Component {
     
         </div>
     
-        <div className="origin place">
-          <label>From</label>
-          <input type="text" name="fromPlace" value={this.props.fromPlace}
-                 onChange={this.props.onChange}/>
-        </div>
-    
-        <div className="destination place">
-          <label>To</label>
-          <input type="text" name="toPlace" value={this.props.toPlace}
-                 onChange={this.props.onChange}/>
+        <div className="places">
+          <div className="origin place">
+            <label>From</label>
+            <input type="text" name="fromPlace" value={this.props.fromPlace}
+                   onChange={this.props.onChange}/>
+          </div>
+      
+          <div className="destination place">
+            <label>To</label>
+            <input type="text" name="toPlace" value={this.props.toPlace}
+                   onChange={this.props.onChange}/>
+          </div>
         </div>
     
         <div className="dates">
@@ -58,21 +60,32 @@ class FlightSearch extends Component {
         </div>
     
         <div className="cabin-and-passengers">
-          <text>Cabin Class & Travellers</text>
-          <select name="class" value={this.props.class}
-                  onChange={this.props.onChange}>
-            <option>Economy</option>
-            <option>Business</option>
-            <option>First</option>
-          </select>
+          <div className="cabin-class">
+            <label>Cabin Class & Travellers</label>
+            <select name="class" value={this.props.class}
+                    onChange={this.props.onChange}>
+              <option>Economy</option>
+              <option>Business</option>
+              <option>First</option>
+            </select>
+          </div>
       
           <div className="passengers">
-            <input type="number" name="adults" value={this.props.adults} placeholder="Adults 16+"
-                   onChange={this.props.onChange}/>
-            <input type="number" name="children" value={this.props.children} placeholder="Children 1-16"
-                   onChange={this.props.onChange}/>
-            <input type="number" name="infants" value={this.props.infants} placeholder="Infants 0-1"
-                   onChange={this.props.onChange}/>
+            <div className="adults passenger">
+              <label>Adults</label>
+              <input type="number" name="adults" value={this.props.adults} placeholder="Adults 16+"
+                     onChange={this.props.onChange}/>
+            </div>
+            <div className="children passenger">
+              <label>Children</label>
+              <input type="number" name="children" value={this.props.children} placeholder="Children 1-16"
+                     onChange={this.props.onChange}/>
+            </div>
+            <div className="infants passenger">
+              <label>Infants</label>
+              <input type="number" name="infants" value={this.props.infants} placeholder="Infants 0-1"
+                     onChange={this.props.onChange}/>
+            </div>
           </div>
         </div>
     
