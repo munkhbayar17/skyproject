@@ -124,15 +124,16 @@ class App extends Component {
         }
         else {
           this.blurResult(0);
-          this.setState({errorMsg: "No result found."});
-          //TODO no result
+          this.setState({errorMsg: "No result found, please check the input."});
         }
   
         this.setState({searching: false});
       })
       .catch(function() {
-        this.setState({errorMsg: "Something went wrong. Please check your input."});
-      });
+        //server is down
+        this.setState({searching: false});
+        this.setState({errorMsg: "Something went wrong. Please try again."});
+      }.bind(this));
   }
   
   onChange(e) {
