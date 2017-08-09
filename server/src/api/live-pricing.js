@@ -32,7 +32,6 @@ const livePricing = {
       })
     },
     pollSession: (creds, pageNumber) => {
-      // TODO paging needed here
       return fetch(pricingUrl + `/${creds.sessionKey}?apiKey=${config.apiKey}&sortType=price*&sortOrder=asc&pageIndex=${pageNumber}`, {
         method: 'GET'
       })

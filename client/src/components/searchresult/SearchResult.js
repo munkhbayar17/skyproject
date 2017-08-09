@@ -20,7 +20,6 @@ class SearchResult extends Component {
     var carriers = this.props.resultData["Carriers"];
     var places = this.props.resultData["Places"];
     
-    //TODO test currency. what if there are different currencies?
     var currency = this.props.resultData["Currencies"][0];
     var currencySymbol = currency.Symbol;
     var symbolOnLeft = currency.SymbolOnLeft;

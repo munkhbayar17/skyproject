@@ -36,8 +36,6 @@ app.get('/', (req, res) => {
 /**
  Simple flight search api wrapper.
  
- TODO: client should provide params
- 
  Api params and location values are here:
  http://business.skyscanner.net/portal/en-GB/Documentation/FlightsLivePricingQuickStart
  */
@@ -54,7 +52,7 @@ app.get('/api/search', (req, res) => {
         results.Carriers = toHashTable(results.Carriers);
         results.Legs = toHashTable(results.Legs);
         results.Places = toHashTable(results.Places);
-        // TODO if segment is to be shown on the front-end, convert it.
+        // if segment is to be shown on the front-end, convert it.
       }
       catch (e) {
         console.log("no result");
@@ -70,14 +68,8 @@ app.get('/api/search', (req, res) => {
     });
 });
 
-//TODO page request need to be added
 /**
- Simple flight search api wrapper.
- 
- TODO: client should provide params
- 
- Api params and location values are here:
- http://business.skyscanner.net/portal/en-GB/Documentation/FlightsLivePricingQuickStart
+ Flight search page api wrapper.
  */
 app.get('/api/search/page', (req, res) => {
   
@@ -92,7 +84,7 @@ app.get('/api/search/page', (req, res) => {
         results.Carriers = toHashTable(results.Carriers);
         results.Legs = toHashTable(results.Legs);
         results.Places = toHashTable(results.Places);
-        // TODO if segment is to be shown on the front-end, convert it.
+        // if segment is to be shown on the front-end, convert it.
       }
       catch (e) {
         console.log("no result");
