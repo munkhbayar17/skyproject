@@ -71,7 +71,42 @@ app.get('/api/search', (req, res) => {
 });
 
 //TODO page request need to be added
-//app.get('/api/search/2', (req, res) => {
+/**
+ Simple flight search api wrapper.
+ 
+ TODO: client should provide params
+ 
+ Api params and location values are here:
+ http://business.skyscanner.net/portal/en-GB/Documentation/FlightsLivePricingQuickStart
+ */
+app.get('/api/search/page', (req, res) => {
+  
+  var params = req.query;
+  
+  api.livePricing.pollData(params)
+    .then((results) => {
+      
+      try {
+        //converting arrays to hashtable
+        results.Agents = toHashTable(results.Agents);
+        results.Carriers = toHashTable(results.Carriers);
+        results.Legs = toHashTable(results.Legs);
+        results.Places = toHashTable(results.Places);
+        // TODO if segment is to be shown on the front-end, convert it.
+      }
+      catch (e) {
+        console.log("no result");
+        results = null;
+      }
+      finally {
+        res.json(results);
+      }
+    })
+    .catch((e) => {
+      console.error;
+      res.json(null);
+    });
+});
 
 app.listen(4000, () => {
   console.log('Node server listening on http://localhost:4000');

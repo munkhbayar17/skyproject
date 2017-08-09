@@ -33,10 +33,14 @@ class App extends Component {
     this.onChange = this.onChange.bind(this);
     this.returnDateChange = this.returnDateChange.bind(this);
     this.searchFlight = this.searchFlight.bind(this);
+    this.pollFlight = this.pollFlight.bind(this);
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
   };
   
+  /*
+  * Validates search form
+  * */
   validate() {
     //passengers
     if (parseInt(this.state.adults, 10) > 8) {
@@ -69,8 +73,11 @@ class App extends Component {
     return true;
   }
   
+  /*
+  * blurs screen while loading next page
+  * */
   blurResult(action) {
-    var resultDiv = document.getElementById("search-result");
+    var resultDiv = document.getElementById("app");
     if (resultDiv) {
       
       if (action === 1) {
@@ -84,13 +91,14 @@ class App extends Component {
     }
   }
   
+  /*
+  * call live-price api of skyscanner using form data
+  * */
   searchFlight() {
     
     if (!this.validate()) {
       return;
     }
-    
-    this.blurResult(1);
     
     this.setState({errorMsg: ""});
     this.setState({searching: true});
@@ -117,13 +125,10 @@ class App extends Component {
       .then((results) => {
         
         if (results) {
-          console.log('fetched results');
-          this.setState({results: results}, function stateUpdateCompleted() {
-            this.blurResult(0);
-          });
+          this.setState({sessionKey: results.SessionKey});
+          this.setState({results: results});
         }
         else {
-          this.blurResult(0);
           this.setState({errorMsg: "No result found, please check the input."});
         }
         
@@ -132,15 +137,66 @@ class App extends Component {
       .catch(function () {
         //server is down
         this.setState({searching: false});
-        this.setState({errorMsg: "Something went wrong. Please try again."});
+        this.setState({errorMsg: "Something went wrong, please try again."});
       }.bind(this));
   }
   
+  /*
+  * get next page of flights using the sessionKey received on the search response
+  * */
+  pollFlight() {
+    //blur screen
+    this.blurResult(1);
+    
+    this.setState({errorMsg: ""});
+    
+    var params = {
+      sessionKey: this.state.sessionKey,
+      pageNumber: this.state.pageNumber
+    };
+    
+    var url = 'http://localhost:4000/api/search/page?';
+    var query = querystring.stringify(params);
+    
+    fetch(url + query)
+      .then((response) => {
+        return response.json();
+      })
+      .then((results) => {
+        
+        if (results) {
+          this.setState({results: results}, function stateUpdateCompleted() {
+            //removes blur when state updates
+            this.blurResult(0);
+          });
+        }
+        else {
+          //removes blur
+          this.blurResult(0);
+          this.setState({errorMsg: "No result found, please check the input."});
+        }
+        
+      })
+      .catch(function () {
+        //server is down
+        console.log("server is down!");
+        this.setState({results: []});
+        this.setState({errorMsg: "Something went wrong. Please try again."});
+        this.blurResult(0);
+      }.bind(this));
+  }
+  
+  /*
+  * update form data
+  * */
   onChange(e) {
     e.preventDefault();
     this.setState({[e.target.name]: e.target.value});
   }
   
+  /*
+  * updates dates
+  * */
   returnDateChange(e) {
     e.preventDefault();
     this.setState({toDate: e.target.value}, function stateUpdateCompleted() {
@@ -150,24 +206,29 @@ class App extends Component {
     }.bind(this));
   }
   
+  /*
+  * next page
+  * */
   next(e) {
     e.preventDefault();
     var currentPage = parseInt(this.state.pageNumber, 10);
     this.setState({pageNumber: (currentPage + 1)}, function stateUpdateCompleted() {
-      this.searchFlight();
+      this.pollFlight();
     }.bind(this));
   }
   
+  /*
+  * previous page
+  * */
   previous(e) {
     e.preventDefault();
     var currentPage = parseInt(this.state.pageNumber, 10);
     if (currentPage > 0) {
       this.setState({pageNumber: (currentPage - 1)}, function stateUpdateCompleted() {
-        this.searchFlight();
+        this.pollFlight();
       }.bind(this));
     }
   }
-  
   
   passengersCount() {
     return parseInt(this.state.adults, 10) + parseInt(this.state.children, 10) + parseInt(this.state.infants, 10);
@@ -175,9 +236,9 @@ class App extends Component {
   
   render() {
     //result page
-    if (this.state.results) {
+    if (this.state.results && this.state.results !== []) {
       return (
-        <div className="App">
+        <div id="app" className="App">
           <TopNav/>
           <TopControl fromPlace={this.state.fromPlace}
                       toPlace={this.state.toPlace}
@@ -195,7 +256,7 @@ class App extends Component {
     else if (this.state.searching) {
       //searching
       return (
-        <div className="App">
+        <div id="app" className="App">
           <TopNav/>
           <TopControl fromPlace={this.state.fromPlace}
                       toPlace={this.state.toPlace}
@@ -208,7 +269,7 @@ class App extends Component {
     
     //homepage
     return (
-      <div className="App">
+      <div id="app" className="App">
         <TopNav/>
         <FlightSearch
           fromPlace={this.state.fromPlace}

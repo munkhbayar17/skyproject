@@ -28,23 +28,13 @@ const livePricing = {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        // uncomment if you'd like to use a development proxy (e.g. Charles or Fiddler)
-        // agent: new HttpProxyAgent({
-        //   host: 'localhost',
-        //   port: '8888'
-        // })
+        }
       })
     },
     pollSession: (creds, pageNumber) => {
       // TODO paging needed here
       return fetch(pricingUrl + `/${creds.sessionKey}?apiKey=${config.apiKey}&sortType=price*&sortOrder=asc&pageIndex=${pageNumber}`, {
-        method: 'GET',
-        // uncomment if you'd like to use a development proxy (e.g. Charles or Fiddler)
-        // agent: new HttpProxyAgent({
-        //   host: 'localhost',
-        //   port: '8888'
-        // })
+        method: 'GET'
       })
     }
   }
@@ -184,6 +174,13 @@ livePricing.search = (searchParams) => {
       .then(startPolling)
       .then(resolve)
       .catch(reject);
+  });
+};
+
+livePricing.pollData = (searchParams) => {
+  pageNumber = searchParams.pageNumber;
+  return startPolling({
+    location: searchParams.sessionKey
   });
 };
 
