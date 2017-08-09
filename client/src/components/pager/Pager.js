@@ -6,7 +6,7 @@ class Pager extends Component {
   render() {
     var prevButton = "";
     if (this.props.pageNumber > 0) {
-      prevButton = <button type="button" className="previous" disabled={!this.props.pageLoading} onClick={this.props.previous}>previous</button>;
+      prevButton = <button type="button" className="previous" onClick={this.props.previous}>previous</button>;
     }
     return (
       <div className="pager">
