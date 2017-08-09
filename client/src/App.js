@@ -17,6 +17,7 @@ class App extends Component {
     
     this.state = {
       searching: false,
+      pageLoading: false,
       class: "Economy",
       fromPlace: "EDI",
       toPlace: "LOND",
@@ -30,11 +31,67 @@ class App extends Component {
     };
     
     this.onChange = this.onChange.bind(this);
+    this.returnDateChange = this.returnDateChange.bind(this);
     this.searchFlight = this.searchFlight.bind(this);
     this.next = this.next.bind(this);
+    this.previous = this.previous.bind(this);
   };
   
+  validate() {
+    //passengers
+    if(parseInt(this.state.adults, 10) > 8) {
+      alert("Adults cannot be more than 8");
+      return false;
+    }
+    if(parseInt(this.state.children, 10) > 8) {
+      alert("Children cannot be more than 8");
+      return false;
+    }
+    if(parseInt(this.state.infants, 10) > 8) {
+      alert("Infants cannot be more than 8");
+      return false;
+    }
+    if(parseInt(this.state.infants, 10) > parseInt(this.state.adults, 10)) {
+      alert("Only 1 infant per adult is allowed");
+      return false;
+    }
+    //dates
+    if(new Date(this.state.toDate) < new Date(this.state.fromDate)) {
+      alert("Return date cannot be later than departure date.");
+      return false;
+    }
+    //places
+    if(this.state.toPlace === this.state.fromPlace) {
+      alert("Searching from and to the same city is not possible.");
+      return false;
+    }
+    
+    return true;
+  }
+  
+  blurResult(action) {
+    var resultDiv = document.getElementById("search-result");
+    if(resultDiv) {
+      
+      if (action === 1) {
+        resultDiv.classList.add("loading");
+        this.setState({pageLoading: true});
+      }
+      else {
+        resultDiv.classList.remove("loading");
+        this.setState({pageLoading: false});
+      }
+    }
+  }
+  
   searchFlight() {
+    
+    if(!this.validate()) {
+      return;
+    }
+  
+    this.blurResult(1);
+    
     this.setState({errorMsg: ""});
     this.setState({searching: true});
 
@@ -60,12 +117,13 @@ class App extends Component {
       .then((results) => {
         
         if(results) {
-          console.log('TODO: something with these results:');
-          console.log(results);
-          this.setState({results: results});
+          console.log('fetched results');
+          this.setState({results: results}, function stateUpdateCompleted() {
+            this.blurResult(0);
+          });
         }
         else {
-          console.log("no result");
+          this.blurResult(0);
           this.setState({errorMsg: "No result found."});
           //TODO no result
         }
@@ -82,14 +140,33 @@ class App extends Component {
     this.setState({[e.target.name]: e.target.value});
   }
   
+  returnDateChange(e) {
+    e.preventDefault();
+    this.setState({toDate: e.target.value}, function stateUpdateCompleted() {
+      if(new Date(this.state.toDate) < new Date(this.state.fromDate)) {
+        this.setState({fromDate: this.state.toDate});
+      }
+    }.bind(this));
+  }
+  
   next(e) {
     e.preventDefault();
     var currentPage = parseInt(this.state.pageNumber, 10);
     this.setState({pageNumber: (currentPage+1)}, function stateUpdateCompleted() {
       this.searchFlight();
     }.bind(this));
-    
   }
+  
+  previous(e) {
+    e.preventDefault();
+    var currentPage = parseInt(this.state.pageNumber, 10);
+    if(currentPage > 0) {
+      this.setState({pageNumber: (currentPage - 1)}, function stateUpdateCompleted() {
+        this.searchFlight();
+      }.bind(this));
+    }
+  }
+  
   
   passengersCount() {
     return parseInt(this.state.adults, 10)+parseInt(this.state.children, 10)+parseInt(this.state.infants, 10);
@@ -105,8 +182,12 @@ class App extends Component {
                       toPlace={this.state.toPlace}
                       passengers={this.passengersCount()}
                       class={this.state.class}/>
-          <SearchResult resultData={this.state.results}/>
-          <Pager next={this.next}></Pager>
+          <SearchResult resultData={this.state.results} ref="searchResult"/>
+          <Pager next={this.next}
+                 previous={this.previous}
+                 pageLoading={this.pageLoading}
+                 pageNumber={this.state.pageNumber}>
+          </Pager>
         </div>
       );
     }
@@ -139,6 +220,7 @@ class App extends Component {
           infants={this.state.infants}
           errorMsg={this.state.errorMsg}
           onChange={this.onChange}
+          returnDateChange={this.returnDateChange}
           searchFlight={this.searchFlight}/>
       </div>
     );

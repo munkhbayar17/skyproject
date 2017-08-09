@@ -17,14 +17,14 @@ class FlightSearch extends Component {
       
           <span>
           <label>
-            <input name="journey-type" type="radio" value="2" disabled/>
+            <input name="journey-type" type="radio" value="2"/>
             <text>One way</text>
           </label>
         </span>
       
           <span>
           <label>
-            <input name="journey-type" type="radio" value="3" disabled/>
+            <input name="journey-type" type="radio" value="3"/>
             <text>Multi-city</text>
           </label>
         </span>
@@ -55,7 +55,7 @@ class FlightSearch extends Component {
           <div className="date">
             <label>Return</label>
             <input type="date" name="toDate" value={this.props.toDate}
-                   onChange={this.props.onChange}/>
+                   onChange={this.props.returnDateChange}/>
           </div>
         </div>
     
@@ -73,17 +73,17 @@ class FlightSearch extends Component {
           <div className="passengers">
             <div className="adults passenger">
               <label>Adults</label>
-              <input type="number" name="adults" value={this.props.adults} placeholder="Adults 16+"
+              <input type="number" name="adults" max="8" value={this.props.adults} placeholder="Adults 16+"
                      onChange={this.props.onChange}/>
             </div>
             <div className="children passenger">
               <label>Children</label>
-              <input type="number" name="children" value={this.props.children} placeholder="Children 1-16"
+              <input type="number" name="children" max="8" value={this.props.children} placeholder="Children 1-16"
                      onChange={this.props.onChange}/>
             </div>
             <div className="infants passenger">
               <label>Infants</label>
-              <input type="number" name="infants" value={this.props.infants} placeholder="Infants 0-1"
+              <input type="number" name="infants" max="8" value={this.props.infants} placeholder="Infants 0-1"
                      onChange={this.props.onChange}/>
             </div>
           </div>

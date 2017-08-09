@@ -136,7 +136,7 @@ class SearchResult extends Component {
     //this.setState({recommendationList: recommendationList});
     
     return (
-      <div className="search-results">
+      <div id="search-result" className="search-results">
         {recommendationList}
       </div>
     );
