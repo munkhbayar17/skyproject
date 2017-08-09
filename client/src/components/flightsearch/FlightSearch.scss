@@ -65,7 +65,7 @@
       margin-top: 1rem;
       display: flex;
       justify-content: space-between;
-      
+
       .passenger {
         width: 33%;
 
@@ -84,7 +84,8 @@
   }
 }
 
-@media screen and (min-width: 40rem)  {
+@media screen and (min-width: 40rem) {
+
   .places {
     display: flex;
     justify-content: space-between;

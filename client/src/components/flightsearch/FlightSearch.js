@@ -14,51 +14,51 @@ class FlightSearch extends Component {
             <text>Return</text>
           </label>
         </span>
-      
+          
           <span>
           <label>
             <input name="journey-type" type="radio" value="2"/>
             <text>One way</text>
           </label>
         </span>
-      
+          
           <span>
           <label>
             <input name="journey-type" type="radio" value="3"/>
             <text>Multi-city</text>
           </label>
         </span>
-    
+        
         </div>
-    
+        
         <div className="places">
           <div className="origin place">
             <label>From</label>
             <input type="text" name="fromPlace" value={this.props.fromPlace}
                    onChange={this.props.onChange}/>
           </div>
-      
+          
           <div className="destination place">
             <label>To</label>
             <input type="text" name="toPlace" value={this.props.toPlace}
                    onChange={this.props.onChange}/>
           </div>
         </div>
-    
+        
         <div className="dates">
           <div className="date">
             <label>Depart</label>
             <input type="date" name="fromDate" value={this.props.fromDate}
                    onChange={this.props.onChange}/>
           </div>
-      
+          
           <div className="date">
             <label>Return</label>
             <input type="date" name="toDate" value={this.props.toDate}
                    onChange={this.props.returnDateChange}/>
           </div>
         </div>
-    
+        
         <div className="cabin-and-passengers">
           <div className="cabin-class">
             <label>Cabin Class & Travellers</label>
@@ -69,7 +69,7 @@ class FlightSearch extends Component {
               <option>First</option>
             </select>
           </div>
-      
+          
           <div className="passengers">
             <div className="adults passenger">
               <label>Adults</label>

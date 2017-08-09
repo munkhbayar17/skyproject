@@ -15,9 +15,9 @@ var pageNumber = 0;
 let cachedData = {};
 
 /**
-  Rough implementation of live pricing api client, as per
-  http://business.skyscanner.net/portal/en-GB/Documentation/FlightsLivePricingList
-*/
+ Rough implementation of live pricing api client, as per
+ http://business.skyscanner.net/portal/en-GB/Documentation/FlightsLivePricingList
+ */
 const livePricing = {
   api: {
     createSession: (params) => {
@@ -50,82 +50,82 @@ const livePricing = {
   }
 };
 
-function createSession (params) {
+function createSession(params) {
   console.log('creating session...');
-
+  
   return new Promise((resolve, reject) => {
     livePricing.api.createSession(params)
       .then((response) => {
         if (response.status !== 201) {
           console.error(response.status, 'something went wrong...')
           return console.error.json()
-            //.then(console.error);
+          //.then(console.error);
         } else {
           // session created
-         _.delay(() => {
+          _.delay(() => {
             resolve({
               location: response.headers.get('location'),
               response: response.json()
             });
           }, pollDelay);
-         }
-
+        }
+        
       })
       .catch(reject);
   });
 }
 
-function startPolling (session) {
+function startPolling(session) {
   const location = session.location;
   const sessionKey = location.substring(location.lastIndexOf('/') + 1);
-
+  
   console.log('session created.');
-
+  
   return new Promise((resolve, reject) => {
     // encapsulation of polling state to pass around
     const pollState = {
-      creds: { sessionKey: sessionKey },
+      creds: {sessionKey: sessionKey},
       finished: false,
       onFinished: resolve,
       onError: reject,
       timedOut: false,
       tries: 0
     };
-
+    
     pollState.success = _.partial(pollSuccess, pollState);
     pollState.error = _.partial(pollError, pollState);
-
+    
     pollState.repoll = () => {
       _.delay(() => {
         poll(pollState, pageNumber);
       }, pollDelay);
     };
-
+    
     // overall timeout - don't wait too long for complete results
     setTimeout(() => {
       pollState.timedOut = true;
     }, maxPollTime);
-
+    
     poll(pollState, pageNumber);
   });
 }
 
-function poll (state, pageNumber) {
+function poll(state, pageNumber) {
   if (state.finished) {
     return;
   }
-
+  
   // auto-repoll if nothing happens for a while
   const backupTimer = setTimeout(() => {
     state.repoll();
   }, pollDelay * 3);
-
+  
   console.log('polling...')
-
+  
   livePricing.api.pollSession(state.creds, pageNumber)
     .then((response) => {
       clearTimeout(backupTimer);
-
+      
       if (response.status === 304) {
         return cachedData;
       }
@@ -138,7 +138,7 @@ function poll (state, pageNumber) {
     .catch(state.err);
 }
 
-function pollSuccess (state, data) {
+function pollSuccess(state, data) {
   if (state.finished) {
     return;
   }
@@ -151,8 +151,8 @@ function pollSuccess (state, data) {
 }
 
 // Not implemented: error handling by response code
-function pollError (state, err) {
-  state.tries ++;
+function pollError(state, err) {
+  state.tries++;
   if (!state.timedOut && state.tries < maxRetries) {
     return state.repoll();
   }

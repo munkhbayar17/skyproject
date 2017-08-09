@@ -24,7 +24,8 @@ class TopControl extends Component {
           </div>
           
           <div className="travellers">
-            <span className="travellers-count">{"" + this.props.passengers + " traveller" + ((parseInt(this.props.passengers, 10)>1)?"s":"")},</span>
+            <span
+              className="travellers-count">{"" + this.props.passengers + " traveller" + ((parseInt(this.props.passengers, 10) > 1) ? "s" : "")},</span>
             <span className="cabin-class">&nbsp;{this.props.class.toLowerCase()}</span>
           </div>
         </div>
