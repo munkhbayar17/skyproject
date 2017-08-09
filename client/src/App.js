@@ -25,7 +25,8 @@ class App extends Component {
       adults: "1",
       children: "0",
       infants: "0",
-      pageNumber: 0
+      pageNumber: 0,
+      errorMsg: ""
     };
     
     this.onChange = this.onChange.bind(this);
@@ -33,16 +34,8 @@ class App extends Component {
     this.next = this.next.bind(this);
   };
   
-  shouldComponentUpdate(nextProps, nextState) {
-    // console.log("old----");
-    // console.log(this.state.results);
-    // console.log("new----");
-    // console.log(nextState.results);
-    return true;
-  }
-  
   searchFlight() {
-    
+    this.setState({errorMsg: ""});
     this.setState({searching: true});
 
     var params = {
@@ -73,12 +66,15 @@ class App extends Component {
         }
         else {
           console.log("no result");
+          this.setState({errorMsg: "No result found."});
           //TODO no result
         }
   
         this.setState({searching: false});
       })
-      .catch(console.error);
+      .catch(function() {
+        this.setState({errorMsg: "Something went wrong. Please check your input."});
+      });
   }
   
   onChange(e) {
@@ -141,6 +137,7 @@ class App extends Component {
           adults={this.state.adults}
           children={this.state.children}
           infants={this.state.infants}
+          errorMsg={this.state.errorMsg}
           onChange={this.onChange}
           searchFlight={this.searchFlight}/>
       </div>

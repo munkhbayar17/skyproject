@@ -88,7 +88,8 @@ class FlightSearch extends Component {
             </div>
           </div>
         </div>
-    
+        
+        <div className="error-msg">{this.props.errorMsg}</div>
         <button onClick={this.props.searchFlight}>Search flights</button>
       </div>
     );

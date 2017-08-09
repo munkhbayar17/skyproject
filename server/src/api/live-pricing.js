@@ -58,8 +58,8 @@ function createSession (params) {
       .then((response) => {
         if (response.status !== 201) {
           console.error(response.status, 'something went wrong...')
-          return response.json()
-            .then(console.error);
+          return console.error.json()
+            //.then(console.error);
         } else {
           // session created
          _.delay(() => {
@@ -179,7 +179,6 @@ const sessionParams = (query) => {
 
 livePricing.search = (searchParams) => {
   pageNumber = searchParams.pageNumber;
-  
   return new Promise((resolve, reject) => {
     createSession(searchParams)
       .then(startPolling)

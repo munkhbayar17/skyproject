@@ -75,6 +75,13 @@
       }
     }
   }
+
+  .error-msg {
+    font-size: large;
+    padding: $bpk-spacing-xs/2;
+    text-align: left;
+    color: $bpk-color-yellow-500;
+  }
 }
 
 @media screen and (min-width: 40rem)  {
