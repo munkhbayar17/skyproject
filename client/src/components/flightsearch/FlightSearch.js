@@ -3,6 +3,21 @@ import './FlightSearch.scss';
 
 class FlightSearch extends Component {
   
+  constructor(props) {
+    super(props);
+    this.formatNumber = this.formatNumber.bind(this);
+  }
+  
+  formatNumber(e){
+    var elem = document.getElementById(e.target.id);
+
+    if(elem) {
+      elem.value = parseInt(e.target.value, 10);
+    }
+    
+    this.props.onChange(e);
+  };
+  
   render() {
     return (
       <div className="search-section">
@@ -73,18 +88,18 @@ class FlightSearch extends Component {
           <div className="passengers">
             <div className="adults passenger">
               <label>Adults</label>
-              <input type="number" name="adults" max="8" value={this.props.adults} placeholder="Adults 16+"
-                     onChange={this.props.onChange}/>
+              <input type="number" name="adults" id="adults" max="8" value={this.props.adults} placeholder="Adults 16+"
+                     onChange={this.formatNumber}/>
             </div>
             <div className="children passenger">
               <label>Children</label>
-              <input type="number" name="children" max="8" value={this.props.children} placeholder="Children 1-16"
-                     onChange={this.props.onChange}/>
+              <input type="number" name="children" id="children" max="8" value={this.props.children} placeholder="Children 1-16"
+                     onChange={this.formatNumber}/>
             </div>
             <div className="infants passenger">
               <label>Infants</label>
-              <input type="number" name="infants" max="8" value={this.props.infants} placeholder="Infants 0-1"
-                     onChange={this.props.onChange}/>
+              <input type="number" name="infants" id="infants" max="8" value={this.props.infants} placeholder="Infants 0-1"
+                     onChange={this.formatNumber}/>
             </div>
           </div>
         </div>
