@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './FlightSearch.scss';
+import Autocomplete from 'react-autocomplete';
 
 class FlightSearch extends Component {
   
@@ -45,18 +46,35 @@ class FlightSearch extends Component {
         </span>
         
         </div>
-        
+
         <div className="places">
           <div className="origin place">
             <label>From</label>
-            <input type="text" name="fromPlace" value={this.props.fromPlace}
-                   onChange={this.props.onChange}/>
+  
+            <Autocomplete
+              getItemValue={(item) => item.value}
+              items={this.props.places}
+              renderItem={(item, isHighlighted) =>
+                <div className="auto-complete-item">{item.label}</div>
+              }
+              value={this.props.fromPlace}
+              onChange={(e) => { this.props.changeValue("fromPlace", e.target.value) }}
+              onSelect={(val) => { this.props.changeValue("fromPlace", val) }}
+            />
           </div>
           
           <div className="destination place">
             <label>To</label>
-            <input type="text" name="toPlace" value={this.props.toPlace}
-                   onChange={this.props.onChange}/>
+            <Autocomplete
+              getItemValue={(item) => item.value}
+              items={this.props.places}
+              renderItem={(item, isHighlighted) =>
+                <div className="auto-complete-item">{item.label}</div>
+              }
+              value={this.props.toPlace}
+              onChange={(e) => { this.props.changeValue("toPlace", e.target.value) }}
+              onSelect={(val) => { this.props.changeValue("toPlace", val) }}
+            />
           </div>
         </div>
         

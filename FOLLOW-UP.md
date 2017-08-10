@@ -4,6 +4,7 @@
 ### 1. bpk-stylesheets for styling
 ### 2. bpk-mixins for styling
 ### 3. format-currency for currency format
+### 4. react-autocomplete for autocomplete on origin and destination picker
 
 ### Q) What is the command to start the server?
 
@@ -17,7 +18,7 @@
 ### 24 hours
 
 ### Q) If you had more time, what further improvements or new features would you add?
-### I would use bpk components instead of html tags, and make the pager more like the real one on Skyscanner.com.
+### I would use bpk components instead of html tags, and make the pager more like the real one on Skyscanner.com. Also, I would implement real location dataset to autocomplete on origin and destination picker. If it was allowed to add more features than the given design and I had more time, I would implement the latest features.
 
 ### Q) Which parts are you most proud of? And why?
 ### I am proud of the frontend (styling, validation, flight results) because it looks a lot like original Skyscanner web.

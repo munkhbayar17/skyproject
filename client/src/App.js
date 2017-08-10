@@ -27,10 +27,16 @@ class App extends Component {
       children: "0",
       infants: "0",
       pageNumber: 0,
-      errorMsg: ""
+      errorMsg: "",
+      places: [
+        { label: 'London', value: 'LOND' },
+        { label: 'Edinburgh', value: 'EDI' },
+        { label: 'Manchester', value: 'MAN' }
+      ]
     };
     
     this.onChange = this.onChange.bind(this);
+    this.changeValue = this.changeValue.bind(this);
     this.returnDateChange = this.returnDateChange.bind(this);
     this.searchFlight = this.searchFlight.bind(this);
     this.pollFlight = this.pollFlight.bind(this);
@@ -194,6 +200,13 @@ class App extends Component {
     e.preventDefault();
     this.setState({[e.target.name]: e.target.value});
   }
+  /*
+  * update form data
+  * */
+  changeValue(fieldName, value) {
+    this.setState({[fieldName]: value});
+  }
+  
   
   /*
   * updates dates
@@ -267,7 +280,9 @@ class App extends Component {
         children={this.state.children}
         infants={this.state.infants}
         errorMsg={this.state.errorMsg}
+        places={this.state.places}
         onChange={this.onChange}
+        changeValue={this.changeValue}
         returnDateChange={this.returnDateChange}
         searchFlight={this.searchFlight}/>;
     }
