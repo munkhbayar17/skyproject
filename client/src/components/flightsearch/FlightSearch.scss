@@ -85,17 +85,7 @@
 }
 
 @media screen and (min-width: 480px) {
-
-  .places {
-    display: flex;
-    justify-content: space-between;
-
-    .place {
-      display: table-cell;
-      width: 48%;
-    }
-  }
-
+  
   .cabin-and-passengers {
     display: flex;
     justify-content: space-between;

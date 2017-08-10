@@ -236,55 +236,50 @@ class App extends Component {
   }
   
   render() {
-    //result page
+    
+    var topNav = <TopNav/>;
+    var search;
+    var topControl;
+    var waitControl;
+    var searchResult;
+    var pager;
+  
     if (this.state.results && this.state.results !== {}) {
-      return (
-        <div id="app" className="App">
-          <TopNav/>
-          <TopControl fromPlace={this.state.fromPlace}
-                      toPlace={this.state.toPlace}
-                      passengers={this.passengersCount()}
-                      class={this.state.class}/>
-          <SearchResult resultData={this.state.results} ref="searchResult"/>
-          <Pager next={this.next}
-                 previous={this.previous}
-                 pageLoading={this.pageLoading}
-                 pageNumber={this.state.pageNumber}>
-          </Pager>
-        </div>
-      );
+      topControl = <TopControl fromPlace={this.state.fromPlace} toPlace={this.state.toPlace}
+                               passengers={this.passengersCount()} class={this.state.class}/>;
+      searchResult = <SearchResult resultData={this.state.results} ref="searchResult"/>;
+      pager = <Pager next={this.next} previous={this.previous} pageLoading={this.pageLoading}
+                     pageNumber={this.state.pageNumber}/>;
     }
     else if (this.state.searching) {
-      //searching
-      return (
-        <div id="app" className="App">
-          <TopNav/>
-          <TopControl fromPlace={this.state.fromPlace}
-                      toPlace={this.state.toPlace}
-                      passengers={this.passengersCount()}
-                      class={this.state.class}/>
-          <WaitControl/>
-        </div>
-      );
+      waitControl = <WaitControl/>;
+      topControl = <TopControl fromPlace={this.state.fromPlace} toPlace={this.state.toPlace}
+                               passengers={this.passengersCount()} class={this.state.class}/>;
     }
-    
-    //homepage
+    else {
+      search = <FlightSearch
+        fromPlace={this.state.fromPlace}
+        toPlace={this.state.toPlace}
+        fromDate={this.state.fromDate}
+        toDate={this.state.toDate}
+        class={this.state.class}
+        adults={this.state.adults}
+        children={this.state.children}
+        infants={this.state.infants}
+        errorMsg={this.state.errorMsg}
+        onChange={this.onChange}
+        returnDateChange={this.returnDateChange}
+        searchFlight={this.searchFlight}/>;
+    }
+  
     return (
       <div id="app" className="App">
-        <TopNav/>
-        <FlightSearch
-          fromPlace={this.state.fromPlace}
-          toPlace={this.state.toPlace}
-          fromDate={this.state.fromDate}
-          toDate={this.state.toDate}
-          class={this.state.class}
-          adults={this.state.adults}
-          children={this.state.children}
-          infants={this.state.infants}
-          errorMsg={this.state.errorMsg}
-          onChange={this.onChange}
-          returnDateChange={this.returnDateChange}
-          searchFlight={this.searchFlight}/>
+        {topNav}
+        {topControl}
+        {search}
+        {waitControl}
+        {searchResult}
+        {pager}
       </div>
     );
   };
